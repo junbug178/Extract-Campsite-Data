@@ -88,13 +88,4 @@ formatted_data = transform_data(all_data, facility_details)
 # Save to an Excel file
 formatted_data.to_excel("facility_availability.xlsx", index=False, engine='openpyxl')
 
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
-connect_str = "DefaultEndpointsProtocol=https;AccountName=felixadventureworks;AccountKey=GTghPWqHk1Uq6ruK2XuKu70CkCofV7Usz01R7XB953B4Wv/kTUxoHM2phxsMZhqN09S0Yyme5vA/+AStb1K37A==;EndpointSuffix=core.windows.net"
-
-blob_service_client = BlobServiceClient.from_connection_string(connect_str)
-
-blob_client = blob_service_client.get_blob_client(container="campsite", blob="facility_availability.xlsx")
-
-with open("facility_availability.xlsx", "rb") as data:
-    blob_client.upload_blob(data, overwrite=True)
